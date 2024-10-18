@@ -1,0 +1,27 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: CourseReview
+    network: mainnet
+    source:
+      address: "0x1234567890123456789012345678901234567890"  # Replace with your deployed contract address
+      abi: CourseReview
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Course
+        - Review
+      abis:
+        - name: CourseReview
+          file: ./abis/CourseReview.json
+      eventHandlers:
+        - event: CourseAdded(indexed uint256,string,string)
+          handler: handleCourseAdded
+        - event: ReviewAdded(indexed uint256,uint256,string,address)
+          handler: handleReviewAdded
+      file: ./src/mapping.ts

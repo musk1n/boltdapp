@@ -1,0 +1,14 @@
+type Course @entity {
+  id: ID!
+  name: String!
+  description: String!
+  reviews: [Review!]! @derivedFrom(field: "course")
+}
+
+type Review @entity {
+  id: ID!
+  course: Course!
+  rating: Int!
+  comment: String!
+  studentAddress: Bytes!
+}
